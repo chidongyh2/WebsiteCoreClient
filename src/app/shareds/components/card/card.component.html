@@ -1,0 +1,35 @@
+<div class="card {{ fullCard }} {{ cardLoad }}" [@cardClose]="cardClose" [ngClass]="cardClass">
+  <div class="card-header ripple" *ngIf="title" [ngClass]="headerClass">
+    <h5>{{ title }}</h5>
+    <span *ngIf="!classHeader">{{ headerContent }}</span>
+    <ng-container *ngIf="classHeader">
+      <ng-content select=".code-header"></ng-content>
+    </ng-container>
+    <div class="card-header-right" *ngIf="!cardOptionBlock">
+      <ul class="list-unstyled card-option" [@cardIconToggle]="cardIconToggle">
+        <li *ngIf="!isCardToggled" (click)="toggleCardOption()"><i
+            class="feather open-card-option icon-chevron-left"></i></li>
+        <li><i class="feather {{ fullCardIcon }} full-card" (click)="fullScreen($event)"></i></li>
+        <li><i class="feather minimize-card icon-minus" appCardToggleEvent (click)="toggleCard($event)"></i></li>
+        <li><i class="feather icon-refresh-cw reload-card" (click)="cardRefresh()"></i></li>
+        <li><i class="feather icon-trash close-card" (click)="closeCard($event)"></i></li>
+        <li *ngIf="isCardToggled" (click)="closeCard($event)"><i class="feather open-card-option icon-x"></i></li>
+      </ul>
+    </div>
+  </div>
+
+  <div [@cardToggle]="cardToggle" [ngClass]="cardToggle" class="card-block-hid">
+    <div class="card-block" [ngClass]="blockClass">
+      <perfect-scrollbar class="cm-pdr-15" [style.height]="'calc(100vh - 20em)'">
+        <ng-content></ng-content>
+      </perfect-scrollbar>
+    </div>
+    <!--<ng-template #dashboard>-->
+      <!--<div *ngIf="isDashboard === false" class="card-block" [class.dashboard]="isDashboard===false">-->
+        <!--<ng-content select=".dashboard-content"></ng-content>-->
+      <!--</div>-->
+    <!--</ng-template>-->
+  </div>
+
+  <div class="card-loader" *ngIf="loadCard"><i class="fa fa-spinner rotate-refresh"></i></div>
+</div>

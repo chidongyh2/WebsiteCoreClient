@@ -1,0 +1,56 @@
+:host>.page-body {
+  padding-top: 20px;
+  overflow-y: scroll;
+}
+
+:host ::ng-deep .tab-content {
+  padding: 1rem;
+  //min-height: 500px;
+  overflow-y: auto;
+  //max-height: calc(100vh - 110px);
+
+  .tab-pane {
+    .page-body {
+      >app-card {
+        >.card {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .tab-content .tab-wrapper {
+  padding: 0;
+  min-height: calc(100vh - 10rem);
+}
+
+:host ::ng-deep span.close {
+  margin-left: .5rem;
+  font-size: 18px;
+
+  &.reload {
+    width: 1rem;
+  }
+}
+
+:host ::ng-deep .nav-tabs {
+  .nav-item {
+    .nav-link {
+      position: relative !important;
+      padding-right: 40px !important;
+
+      .close {
+        font-size: 18px !important;
+        position: absolute !important;
+        right: 5px !important;
+      }
+
+      .reload {
+        font-size: 16px !important;
+        position: absolute !important;
+        right: 20px !important;
+      }
+    }
+  }
+}

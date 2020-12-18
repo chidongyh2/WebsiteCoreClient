@@ -1,0 +1,14 @@
+{
+    "projectTitle": "Medlatec Core",
+    "auth": {
+       "error": {
+        "invalidClient": "Client invalid please contact with administrator.",
+        "accountDoesNotExists": "Tài khoản không tồn tại. Vui lòng kiểm tra lại.",
+        "somethingWentWrong": "Có gì đó hoạt động chưa đúng. Vui lòng liên hệ với quản trị viên",
+        "cantRefreshToken": "Can't fresh token. ReLogin please."
+       }
+    },
+    "notification": {
+        "title": "Thông báo"
+    }
+}

@@ -1,0 +1,31 @@
+.card{
+  .card-header{
+    .card-header-right{
+      .card-option {
+        width: 140px;
+        transition: unset;
+      }
+    }
+  }
+}
+.collapsed {
+  display: none !important;
+}
+
+.hide-title {
+  h5 {
+    display: none !important;
+  }
+}
+perfect-scrollbar {
+  .ps-content {
+    margin-top: 10px;
+  }
+}
+.dashboard{
+  height: 80vh;
+  overflow-y: scroll;
+}
+//.dashboard::-webkit-scrollbar{
+//  width: 5px;
+//}

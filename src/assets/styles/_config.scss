@@ -1,0 +1,94 @@
+$default-color: #222;
+$font-family: "Arial", tahoma, Helvetica Neue;
+$color-blue: #3598dc;
+$main-color: #007455;
+$border-color: #ccc;
+$second-color: #b01a1f;
+$table-background-color: #009688;
+$blue: #007bff;
+$darkBlue: #3598dc;
+$bright-blue: #dff0fd;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+$white: #fff;
+$gray: #868e96;
+$gray-dark: #343a40;
+$primary: #337ab7;
+$secondary: #868e96;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+$label-color: #666;
+$light-blue: #f5f7f7;
+$brightGray: #757575;
+$background-color: #ECF0F1;
+$borderActiveColor: #00b894;
+$borderColor: #ddd;
+$borderRadius: 0;
+$dark-blue: #0072BC;
+$bright-blue: #dff0fd;
+$max-width-mobile: 768px;
+$max-width-tablet: 992px;
+$max-width-desktop: 1280px;
+
+// BEGIN: Margin
+@mixin med-mg($pixel){
+    margin: $pixel !important;
+}
+@mixin med-mgt($pixel){
+    margin-top: $pixel !important;
+}
+@mixin med-mgb($pixel){
+    margin-bottom: $pixel !important;
+}
+@mixin med-mgl($pixel){
+    margin-left: $pixel !important;
+}
+@mixin med-mgr($pixel){
+    margin-right: $pixel !important;
+}
+// END: Margin
+
+// BEGIN: Padding
+@mixin med-pd($pixel){
+    padding: $pixel !important;
+}
+@mixin med-pdt($pixel){
+    padding-top: $pixel !important;
+}
+@mixin med-pdb($pixel){
+    padding-bottom: $pixel !important;
+}
+@mixin med-pdl($pixel){
+    padding-left: $pixel !important;
+}
+@mixin med-pdr($pixel){
+    padding-right: $pixel !important;
+}
+// END: Padding
+
+// BEGIN: Width
+@mixin med-width($width){
+    width: $width !important;
+    min-width: $width !important;
+    max-width: $width !important;
+}
+// END: Width
+
+// BEGIN: Icon Size
+@mixin med-size-icon($size){
+    width: $size;
+    height: $size;
+    font-size: $size;
+}
+// END: Icon Size

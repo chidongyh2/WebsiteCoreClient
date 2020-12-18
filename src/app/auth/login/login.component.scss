@@ -1,0 +1,45 @@
+.txt-required {
+  color: red;
+  position: absolute;
+  right: 2px;
+  top: 15px;
+}
+
+.ng-submitted .form-control.ng-invalid:not(form),
+.form-control.ng-invalid.ng-touched:not(form) {
+  border-bottom: 1px solid red;
+
+  &:focus {
+    border-bottom: 1px solid red;
+  }
+}
+
+.form-control.ng-invalid:not(form)+div.form-error {
+  border-bottom: 1px solid red;
+
+  &:focus {
+    border-bottom: 1px solid red;
+  }
+}
+
+.ng-submitted .form-control.ng-invalid.ng-dirty:not(form),
+.form-control.ng-invalid.ng-dirty.ng-touched:not(form) {
+  border-bottom: 1px solid red;
+
+  &:focus {
+    border-bottom: 1px solid red;
+  }
+}
+
+.ng-dirty.ng-invalid:not(form) {
+  border-bottom: 1px solid red;
+
+  &:focus {
+    border-bottom: 1px solid red;
+  }
+}
+
+//}
+.form-control:focus {
+  border: 1px solid transparent;
+}

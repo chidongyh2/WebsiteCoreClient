@@ -5,10 +5,36 @@
   "projects": {
     "MedlatecCoreClient": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -24,7 +50,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/fonts/fontawesome/css/all.min.css",
+              "src/assets/styles/app.scss",
+              "src/assets/styles/_theme.scss",
+              "src/assets/icons/feather/css/feather.css"
             ],
             "scripts": []
           },
@@ -47,12 +76,12 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumError": "500mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "500mb"
                 }
               ]
             }
@@ -87,7 +116,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/fonts/font-awesome.min.js",
+              "src/assets/styles/app.scss"
             ],
             "scripts": []
           }
@@ -120,5 +150,8 @@
       }
     }
   },
-  "defaultProject": "MedlatecCoreClient"
+  "defaultProject": "MedlatecCoreClient",
+  "cli": {
+    "analytics": "dc60f46d-4bce-46a1-9d0d-a1957226bdeb"
+  }
 }

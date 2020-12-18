@@ -1,0 +1,19 @@
+
+// pages
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/general";
+@import "partials/pages/icon-layout";
+@import "partials/pages/authentication";
+@import "partials/pages/breadcrumb";
+// Menu
+@import "partials/menu/menu";
+// // Important Theme elements
+@import "partials/theme-elements/button";
+@import "partials/theme-elements/form-elements";
+
+// // Theme elements
+// @import "partials/theme-elements/label-badges";
+// // Responsive css
+@import "partials/responsive/responsive";
+@import "partials/custom";
