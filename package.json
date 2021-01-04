@@ -30,6 +30,7 @@
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.5.3",
+    "lodash": "^4.17.20",
     "ng-click-outside": "^7.0.1",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-bootstrap": "^6.2.0",

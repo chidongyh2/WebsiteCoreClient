@@ -2,7 +2,6 @@ import { AuthGuardService } from './shareds/services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './core/layout/layout.component';
-import { AppService } from './shareds/services/app.service';
 import { MainModule } from './main/main.module';
 
 const routes: Routes = [
@@ -13,9 +12,6 @@ const routes: Routes = [
     {
         path: '',
         component: LayoutComponent,
-        resolve: {
-            data: AppService
-        },
         canActivate: [AuthGuardService],
         children: [
             {

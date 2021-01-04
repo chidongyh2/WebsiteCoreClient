@@ -19,10 +19,12 @@ export const selectIsAuthenticated = createSelector(
 export const selectLoading = createSelector(
     selectAuthState,
     (state: AuthState) => state.loading
-  );
-
+);
+export const selectMenuItems = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.menus
+);
 export const selectError = createSelector(
     selectAuthState,
     (state: AuthState) => state.error
-  );
-  
+);

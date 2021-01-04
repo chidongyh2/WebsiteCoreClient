@@ -1,3 +1,6 @@
+import { HttpErrorResponse } from "@angular/common/http";
+import { BriefUserViewmodel } from "src/app/shareds/view-model/brief-user.viewmodel";
+import { RolePageViewModel } from "src/app/shareds/view-model/role-page.viewmodel";
 import { MenuItem } from "../interfaces/menu-item.model";
 import { ICredentials } from "../models/credentials.model";
 
@@ -5,11 +8,11 @@ export interface AuthState {
     isAuthenticated: boolean;
     loading: boolean;
     tabs?: MenuItem[];
-    menu?: MenuItem[];
+    menus?: MenuItem[];
     tab?: string;
-    permission?: any;
-    avatar: string;
-    logo?: string;
-    error?: any;
+    permissions?: RolePageViewModel[];
+    error?: HttpErrorResponse;
+    token?: string;
+    currUser?: BriefUserViewmodel,
     credentials?: ICredentials;
 }

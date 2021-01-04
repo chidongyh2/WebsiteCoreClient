@@ -14,6 +14,7 @@ export function initStateFromLocalStorage(
         // get current reducer state
         const newState = reducer(state, action);
         if ([INIT.toString(), UPDATE.toString()].includes(action.type)) {
+            console.log({...newState, ...LocalStorageService.loadInitialState()})
             return {...newState, ...LocalStorageService.loadInitialState() };
         }
         return newState;

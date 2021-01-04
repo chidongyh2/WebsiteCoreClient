@@ -1,12 +1,15 @@
-import { fakeMenu } from './fake-menu';
+import { MenuItemType } from './../interfaces/menu-item.model';
 import { MenuItem } from './../../core/interfaces/menu-item.model';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/states/core.state';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { selectMenuItems } from 'src/app/auth/auth.selector';
+import * as _ from 'lodash';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -163,6 +166,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   currentAccount: any;
   profileMenu: MenuItem;
   logoOrg: any = 'assets/images/logo.png';
+  menuItemType = MenuItemType;
   @ViewChild("TextSearch") TextSearch: ElementRef;
   // private _hubConnection: HubConnection;
   scroll = (): void => {
@@ -232,26 +236,15 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.windowWidth = window.innerWidth;
     this.setMenuAttributes(this.windowWidth);
     this.setHeaderAttributes(this.windowWidth);
-
-    // dark theme
-    /*this.setLayoutType('dark');*/
-
-    // light-dark
-    /*this.setLayoutType('dark');
-    this.setNavBarTheme('themelight1');*/
-
-    // dark-light theme
-    /*this.setNavBarTheme('theme1');*/
-
-    // box layout
-    /*this.setHeaderPosition();
-    this.setSidebarPosition();
-    this.setVerticalLayout();*/
   }
 
   ngOnInit() {
     this.subscription = new Subject<any>();
-    // this.store.pipe(takeUntil(this.subscription)).pipe(select(selectNonMenu)).subscribe(asideMenu => this.asideMenu = asideMenu);
+
+    this.store.pipe(takeUntil(this.subscription)).pipe(select(selectMenuItems)).subscribe(menus => {
+      const menuTemp = _.cloneDeep(menus);
+      this.menuItems = this.renderTreeMenu(menuTemp, null)
+    });
     // this.store.pipe(takeUntil(this.subscription)).pipe(select(selectProfileMenu)).subscribe(profileMenu => this.profileMenu = profileMenu);
     // this.store.pipe(takeUntil(this.subscription)).pipe(select(selectAccount)).subscribe(account => this.currentAccount = account);
     // this.setBackgroundPattern('theme1');
@@ -259,8 +252,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
     /*
       Config Notification using SignalR
     */
-    this.menuItems = fakeMenu;
   }
+
+  private renderTreeMenu(menus: MenuItem[], parentId?: number) {
+    const roots = _.filter(menus, (menu: MenuItem) => {
+        return menu.parentId === parentId;
+    });
+    const treeNodes = [];
+    if (roots) {
+        _.each(roots, (root: MenuItem) => {
+            root.children = this.renderTreeMenu(menus, root.id)
+            treeNodes.push(root);
+        });
+    }
+    return treeNodes;
+}
 
   onClickNotification(content) {
   }
@@ -404,17 +410,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   textSearch: any;
 
-  searchOff() {
-    // this.searchInterval = setInterval(() => {
-    //   if (this.searchWidth <= 0) {
-    //     document.querySelector('#main-search').classList.remove('open');
-    //     clearInterval(this.searchInterval);
-    //     return false;
-    //   }
-    //   this.searchWidth = this.searchWidth - 15;
-    //   this.searchWidthString = this.searchWidth + 'px';
-    // }, 35);
-  }
 
   ngOnDestroy() {
     if (this.searchInterval) {
@@ -608,8 +603,5 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   logout(evt) {
 
-  }
-  a() {
-    alert('hjsdgjkshfkj');
   }
 }

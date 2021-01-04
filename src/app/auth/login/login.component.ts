@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { Credentials } from 'src/app/core/models/credentials.model';
@@ -27,7 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(
     public store: Store<AppState>,
     private localStorageService: LocalStorageService,
-    private translateService: TranslateService,
     private route: ActivatedRoute
   ) {
   }
@@ -40,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.isAuthenticated$ = this.store.pipe(select(selectIsAuthenticated));
     this.error$ = this.store.pipe(select(selectError));
       this.store.pipe(select(selectError)).subscribe(err => {
-        this.err = err;
+        this.err = err?.error;
       });
       this.store.pipe(select(selectError)).subscribe(err => { console.log(err); });
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');

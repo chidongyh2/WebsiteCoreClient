@@ -10,5 +10,12 @@
     },
     "notification": {
         "title": "Thông báo"
+    },
+    "login": {
+        "title": "Đăng nhập hệ thống",
+        "error": {
+            "invalidUserPassword": "Tên đăng nhập hoặc mật khẩu không đúng",
+            "somethingWrong": "Thông tin đăng nhập không đúng vui lòng thử lại"
+        }
     }
 }

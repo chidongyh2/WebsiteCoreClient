@@ -1,0 +1,57 @@
+<div class="page-body box-infor-field tab-wrapper tab-page-list">
+    <app-card [title]="'Danh sách danh mục'">
+      <div class="m-b-20 d-flex justify-content-between flex-column flex-md-row">
+        <div class="d-flex align-items-center">
+          <label class="search_label m-0">Danh mục</label>
+          <input type="text" class="form-control mr-4" [formControl]="keyword">
+          <button class="btn btn-primary py-2" (click)="fetch()">
+            <i class="feather icon-search"></i>
+          </button>
+        </div>
+        <div class="mt-3 mt-md-0">
+          <button class="btn btn-primary float-right py-2" (click)="add()">
+            <i class="feather icon-plus-circle" aria-hidden="true"></i>Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-framed">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên trang</th>
+              <th>Icon</th>
+              <th>Trạng thái</th>
+              <th style="width: 100px">Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of items">
+              <th scope="row">{{ item.name }}</th>
+              <td>{{ item?.icon }}</td>
+              <td>{{ item?.isActive }}</td>
+              <td>
+                <span class="common-action" (click)="edit(item.id)"><i
+                    class="feather icon-settings"></i></span>
+                <span class="common-action" (click)="deletePage(item)"><i
+                    class="feather icon-trash-2"></i></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+      </div>
+      <div class="m-b-20" *ngIf="totalRows">
+        <div *ngIf="totalRows > 1">
+          <ngb-pagination class="float-right" [collectionSize]="totalRows" [pageSize]="pageSize" [(page)]="currentPage"
+            [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage()">
+          </ngb-pagination>
+        </div>
+        <div *ngIf="keyword && items && items.length < 1"
+          style="text-align: center;    margin-top: 10px; font-weight: bold;">
+          Không có kết quả thỏa mãn điều kiện nhập
+        </div>
+      </div>
+  
+    </app-card>
+  </div>

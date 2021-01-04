@@ -1,23 +1,31 @@
 export interface MenuItem {
-    code: string;
-    state: string;
+    id: number;
+    IdPath?: string;
     shortLabel?: string;
     mainState?: string;
     target?: boolean;
     name: string;
-    external?: string;
-    type?: string;
+    url?: string;
+    type?: MenuItemType;
     icon: string;
-    isReport?: boolean;
     children?: MenuItem[];
-    menuId?: number;
-    badge?: BadgeItem[];
     isShowSidebar?: boolean;
+    childCount?: number;
+    order?: number;
+    orderPath?: string;
+    parentId?: number;
+    code: string;
     parentCode: string;
-    isEncyption?: boolean;
   }
   
   export interface BadgeItem {
     type: string;
     value: string;
+  }
+
+  export enum MenuItemType {
+    sub, // for parent menu
+    tab, // for tab
+    url, // for url
+    modal, // for open modal
   }

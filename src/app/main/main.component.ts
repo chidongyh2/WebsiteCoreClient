@@ -10,11 +10,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class MainComponent implements OnInit, OnChanges, OnDestroy {
   private idCounter: number = 0;
-  tabMenu$: Observable<MenuItem[]> = new Observable(obj => {
-    setTimeout(() => {
-      obj.next(fakeMenu)
-    }, 200)
-  });
+  tabMenu$: Observable<MenuItem[]>;
   activedTab$: Observable<string>;
   subscription: Subject<void> = new Subject();
   constructor() { }

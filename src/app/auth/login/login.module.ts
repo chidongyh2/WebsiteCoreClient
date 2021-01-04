@@ -17,6 +17,5 @@ import { SharedModule } from 'src/app/shareds/shared.module';
 })
 export class LoginModule {
   constructor() {
-    console.log('dzo')
   }
  }

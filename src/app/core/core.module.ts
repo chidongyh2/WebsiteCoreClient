@@ -13,6 +13,7 @@ import { LocalStorageService } from "./local-storage/local-storage.service";
 import { APP_CONFIG, APP_CONFIG_DI } from '../configs/app.config';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthEffects } from '../auth/auth.effects';
 
 registerLocaleData(localeVi, 'vi')
 
@@ -27,7 +28,7 @@ export function createTranslateLoader(http: HttpClient) {
         // ngrx
         StoreModule.forRoot(reducers, { metaReducers }),
         StoreRouterConnectingModule.forRoot(),
-        EffectsModule.forRoot(),
+        EffectsModule.forRoot([AuthEffects]),
         ToastrModule.forRoot(),
         StoreDevtoolsModule.instrument({
             name: 'Angular NgRx Material Starter'

@@ -6,7 +6,7 @@
           <!-- Authentication card start -->
           <form class="md-float-material form-material" name="loginForm" #loginForm="ngForm" (ngSubmit)="login()" role="form"   [class.ng-submitted]="loginForm.submitted" autocomplete="off">
             <div class="text-center">
-              <img src="assets/images/logo-crm.png" alt="logo.png">
+              <img src="assets/images/logo-medlatec.png" width="150px" height="150px" alt="logo.png">
             </div>
             <div class="auth-box card">
               <div class="card-block">
@@ -19,7 +19,8 @@
                 <!--<span class="bg-color-box col color-success" [style.white-space]="'pre-wrap'"></span>-->
                 <!--</div>-->
                 <div *ngIf="(error$ | async) as error">
-                  <span *ngIf="error && error.error" class="bg-color-box col color-danger" [style.white-space]="'pre-wrap'">{{(error.status === 0) ? 'Đã có lỗi xảy ra. Vui lòng thử lại' : error.error.message }}</span>
+                  <span *ngIf="error && error.error" class="bg-color-box col color-danger" [style.white-space]="'pre-wrap'">
+                    {{((error?.error?.error_description === 'invalid_username_or_password') ? 'login.error.invalidUserPassword' : 'login.error.somethingWrong') | translate }}</span>
                 </div>
                 <div class="form-group form-primary">
                   <input type="text" name="username" [(ngModel)]="credentials.username" class="form-control" required maxlength="100">
