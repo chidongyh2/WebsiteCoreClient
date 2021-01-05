@@ -8,8 +8,9 @@ export interface AuthState {
     isAuthenticated: boolean;
     loading: boolean;
     tabs?: MenuItem[];
+    tabargs?: any;
     menus?: MenuItem[];
-    tab?: string;
+    tab?: number;
     permissions?: RolePageViewModel[];
     error?: HttpErrorResponse;
     token?: string;

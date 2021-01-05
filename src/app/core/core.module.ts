@@ -14,6 +14,7 @@ import { APP_CONFIG, APP_CONFIG_DI } from '../configs/app.config';
 import { ToastrModule } from 'ngx-toastr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthEffects } from '../auth/auth.effects';
+import { PAGE_ID, PAGE_ID_DI } from '../configs/page-id.interface';
 
 registerLocaleData(localeVi, 'vi')
 
@@ -47,6 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
         LocalStorageService,
         { provide: HTTP_INTERCEPTORS, useClass: CoreInterceptorService, multi: true },
         { provide: APP_CONFIG, useValue: APP_CONFIG_DI },
+        {provide: PAGE_ID, useValue: PAGE_ID_DI},
     ],
     exports: [
         TranslateModule

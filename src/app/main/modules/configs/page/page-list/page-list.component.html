@@ -3,7 +3,7 @@
       <div class="m-b-20 d-flex justify-content-between flex-column flex-md-row">
         <div class="d-flex align-items-center">
           <label class="search_label m-0">Danh mục</label>
-          <input type="text" class="form-control mr-4" [formControl]="keyword">
+          <input type="text" class="form-control mr-4" [(ngModel)]="keyword">
           <button class="btn btn-primary py-2" (click)="fetch()">
             <i class="feather icon-search"></i>
           </button>

@@ -6,6 +6,7 @@ export const AUTH_AVATAR = 'AUTH.AVATAR';
 export const AUTH_LOGO = 'AUTH.LOGO';
 export const AUTH_MENU = 'AUTH.MENUS';
 export const AUTH_TABS = 'AUTH.TABS';
+export const AUTH_TAB = 'AUTH.TAB';
 export const AUTH_REMEMBER = 'AUTH.REMEMBER';
 export const AUTH_PERMISSION = 'AUTH.PERMISSION';
 export const AUTH_CHANGE = 'AUTH.CHANGE';

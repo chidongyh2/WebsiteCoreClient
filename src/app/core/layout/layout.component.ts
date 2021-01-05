@@ -8,8 +8,10 @@ import { AppState } from 'src/app/core/states/core.state';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { selectMenuItems } from 'src/app/auth/auth.selector';
+import { selectCurrentUser, selectMenuItems } from 'src/app/auth/auth.selector';
 import * as _ from 'lodash';
+import { BriefUserViewmodel } from 'src/app/shareds/view-model/brief-user.viewmodel';
+import { ActionAddOrActiveTab } from 'src/app/auth/auth.actions';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -163,7 +165,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   nameClassOrg: any;
   subscription: Subject<any>;
-  currentAccount: any;
+  currentUser: BriefUserViewmodel;
   profileMenu: MenuItem;
   logoOrg: any = 'assets/images/logo.png';
   menuItemType = MenuItemType;
@@ -245,8 +247,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
       const menuTemp = _.cloneDeep(menus);
       this.menuItems = this.renderTreeMenu(menuTemp, null)
     });
-    // this.store.pipe(takeUntil(this.subscription)).pipe(select(selectProfileMenu)).subscribe(profileMenu => this.profileMenu = profileMenu);
-    // this.store.pipe(takeUntil(this.subscription)).pipe(select(selectAccount)).subscribe(account => this.currentAccount = account);
+    this.store.pipe(takeUntil(this.subscription)).pipe(select(selectCurrentUser)).subscribe(user => this.currentUser = user);
     // this.setBackgroundPattern('theme1');
     // this.getUser();
     /*
@@ -603,5 +604,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   logout(evt) {
 
+  }
+
+  onOpenTab(item: MenuItem) {
+    this.store.dispatch(new ActionAddOrActiveTab({ tab: Object.assign({}, item) }));
   }
 }

@@ -1,17 +1,18 @@
 <div class="page-body" id="page-body">
     <ngb-tabset [justify]="'start'" [destroyOnHide]="false" [activeId]="(activedTab$ | async)"
       (tabChange)="beforeChange($event)">
-      <ngb-tab [id]="tab.code" *ngFor="let tab of (tabMenu$ | async) as tabMenu; let i=index">
+      <ngb-tab [id]="tab.id.toString()" *ngFor="let tab of (tabMenu$ | async) as tabMenu; let i=index">
           <ng-template ngbTabTitle>
             <span ngbTooltip="{{tab.name}}">{{ tab.name.length > 25 ? (tab.name |  slice: 0: 25) + '...' : tab.name }}</span>
             <span class="close reload" (click)="onReloadClick(tab, $event)">&#x21bb;</span>
-            <span id ="span{{tab.code}}" class="close" (click)="onCloseClick(tab, $event)">&times;</span>
+            <span id ="span{{tab.id}}" class="close" (click)="onCloseClick(tab, $event)">&times;</span>
         </ng-template>
         <ng-template ngbTabContent>
           <div>
             <div class="row">
               <div class="col-md-12">
-                <page-list *ngIf="tab.id === 2"></page-list>   
+                <page-list *ngIf="tab.id === pageId.CONFIG_PAGE"></page-list> 
+                <dashboard *ngIf="tab.id === pageId.CONFIG_ROLE"></dashboard>     
             </div>
         </div>
       </div>

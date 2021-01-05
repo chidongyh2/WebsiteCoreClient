@@ -1,4 +1,5 @@
-import { AUTH_ACCOUNT, AUTH_MENU, AUTH_REFRESH_TOKEN } from 'src/app/auth/auth.constants';
+import { MenuItem, MenuItemType } from './../core/interfaces/menu-item.model';
+import { AUTH_ACCOUNT, AUTH_ALLOW_OPEN_TABS, AUTH_MENU, AUTH_REFRESH_TOKEN, AUTH_TAB, AUTH_TABARGS } from 'src/app/auth/auth.constants';
 import {
   ActionAuthenticate,
   ActionAuthenticateError,
@@ -7,18 +8,24 @@ import {
   AuthActionTypes,
   ActionLoadAuthenticateSettingsSuccess,
   ActionLoadAuthenticateSettingsFail,
-  ActionLoginSuccess
+  ActionLoginSuccess,
+  ActionRemoveTab,
+  ActionReplaceTab,
+  ActionAddOrActiveTab,
+  ActionActiveTab
 } from './auth.actions';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { LocalStorageService } from 'src/app/core/local-storage/local-storage.service';
 import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
-import { Action } from '@ngrx/store';
-import { exhaustMap, map, catchError, switchMap, tap } from 'rxjs/operators';
+import { Action, Store } from '@ngrx/store';
+import { exhaustMap, catchError, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AUTH_CHANGE, AUTH_KEY, AUTH_TABS, AUTH_TOKEN } from './auth.constants';
 import { of } from 'rxjs';
 import { AppService } from '../shareds/services/app.service';
+import { AppState } from '../core/states/core.state';
+import { isDefined } from '../shareds/utils/common.util';
 
 @Injectable()
 export class AuthEffects {
@@ -27,7 +34,8 @@ export class AuthEffects {
     private localStorageService: LocalStorageService,
     private router: Router,
     private authService: AuthService,
-    private appService: AppService
+    private appService: AppService,
+    public store: Store<AppState>
   ) { }
 
   @Effect()
@@ -83,8 +91,8 @@ export class AuthEffects {
             this.localStorageService.removeItem(AUTH_REFRESH_TOKEN);
             return of(new ActionLoadAuthenticateSettingsFail())
           })
+        )
       )
-    )
     );
 
   @Effect({ dispatch: false })
@@ -98,4 +106,79 @@ export class AuthEffects {
       }
     })
   );
+
+  @Effect({ dispatch: false })
+  addOrActiveTab = () =>
+    this.actions$.pipe(
+      ofType<ActionAddOrActiveTab>(
+        AuthActionTypes.TAB_ADD_OR_ACTIVE
+      ),
+      withLatestFrom(this.store.select(state => state.auth.tabargs)),
+      tap(([action, tabArgs]) => {
+        const tabs: any[] = Object.assign([], this.localStorageService.getItem(AUTH_TABS));
+        if (tabs.length < AUTH_ALLOW_OPEN_TABS) { // only allow open AUTH_ALLOW_OPEN_TABS tabs
+          const addTab = Object.assign({}, action.payload.tab);
+          const index = tabs.findIndex(t => t.type === MenuItemType.tab && t.id === addTab.id);
+          if (index === -1) {
+            tabs.push(addTab);
+            this.localStorageService.setItem(AUTH_TABS, tabs);
+          }
+          if (action.payload.args) {
+            this.localStorageService.setItem(AUTH_TABARGS, tabArgs);
+          }
+          this.localStorageService.setItem(AUTH_TAB, addTab.id);
+        }
+      })
+    );
+
+  @Effect({ dispatch: false })
+  activeTab = () =>
+    this.actions$.pipe(
+      ofType<ActionActiveTab>(
+        AuthActionTypes.TAB_ACTIVE
+      ),
+      tap((action) => {
+        this.localStorageService.setItem(AUTH_TAB, action.payload);
+      }
+      )
+    );
+
+  @Effect({ dispatch: false })
+  replaceTab = () =>
+    this.actions$.pipe(
+      ofType<ActionReplaceTab>(
+        AuthActionTypes.TAB_REPLACE
+      ),
+      withLatestFrom(this.store.select(state => state.auth.tabargs)),
+      tap(([action, tabArgs]) => {
+        const tabs: any[] = Object.assign([], this.localStorageService.getItem(AUTH_TABS));
+        if (tabs.length < AUTH_ALLOW_OPEN_TABS) { // only allow open AUTH_ALLOW_OPEN_TABS tabs
+          const needleTab = tabs.filter(t => t.code === action.payload.needle);
+          if (isDefined(needleTab)) {
+            const needleIndex = tabs.indexOf(needleTab);
+            tabs.splice(needleIndex, 1, action.payload.haystack.tab);
+            this.localStorageService.setItem(AUTH_TABS, tabs);
+            if (action.payload.haystack.args) {
+              this.localStorageService.setItem(AUTH_TABARGS, tabArgs);
+            }
+          }
+        }
+      })
+    );
+
+  @Effect({ dispatch: false })
+  removeTab = () =>
+    this.actions$.pipe(
+      ofType<ActionRemoveTab>(
+        AuthActionTypes.TAB_REMOVE
+      ),
+      tap(action => {
+        const tabs: MenuItem[] = Object.assign([], this.localStorageService.getItem(AUTH_TABS));
+        const index = tabs.findIndex(t => t.type === MenuItemType.tab && t.id === action.payload.id);
+        if (index !== -1) {
+          tabs.splice(index, 1);
+          this.localStorageService.setItem(AUTH_TABS, tabs);
+        }
+      })
+    );
 }

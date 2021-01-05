@@ -10,6 +10,7 @@ import { LayoutComponent } from './core/layout/layout.component';
 import { AuthService } from './core/auth/auth.service';
 import { AuthGuardService } from './shareds/services/auth-guard.service';
 import { AppService } from './shareds/services/app.service';
+import { ClickOutsideModule } from 'ng-click-outside';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { AppService } from './shareds/services/app.service';
     AppRoutingModule,
     SharedModule,
     CoreModule,
+    ClickOutsideModule,
     // FEATURE
     SettingsModule
   ],

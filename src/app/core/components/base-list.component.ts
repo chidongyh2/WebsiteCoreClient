@@ -1,5 +1,5 @@
 import { Directive, OnInit } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, Subscriber } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { BriefUser } from "../models/brief-user.model";
 import { PermissionViewModel } from "../view-models/permission.viewmodel";
@@ -17,6 +17,7 @@ export abstract class BaseListComponent<T> implements OnInit {
     query: string
     sort: string
     totalRows: number
+    subscribers: any = {};
     permission: PermissionViewModel = {
         view: false,
         add: false,
@@ -62,7 +63,14 @@ export abstract class BaseListComponent<T> implements OnInit {
     }
 
     ngOnDestroy(): void {
-        throw new Error("Method not implemented.");
+        for (const subscriberKey in this.subscribers) {
+            if (this.subscribers.hasOwnProperty(subscriberKey)) {
+                const subscriber = this.subscribers[subscriberKey];
+                if (subscriber instanceof Subscriber) {
+                    subscriber.unsubscribe();
+                }
+            }
+        }
     }
 
     loadPage() {

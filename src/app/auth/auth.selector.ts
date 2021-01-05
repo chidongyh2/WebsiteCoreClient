@@ -28,3 +28,18 @@ export const selectError = createSelector(
     selectAuthState,
     (state: AuthState) => state.error
 );
+
+export const selectCurrentUser = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.currUser
+);
+
+export const selectTab = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.tabs
+);
+
+export const selectActivedTab = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.tab && state.tab.toString()
+);

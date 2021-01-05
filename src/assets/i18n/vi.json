@@ -17,5 +17,9 @@
             "invalidUserPassword": "Tên đăng nhập hoặc mật khẩu không đúng",
             "somethingWrong": "Thông tin đăng nhập không đúng vui lòng thử lại"
         }
+    },
+    "profile": {
+        "info": "Thông tin người dùng",
+        "changePassword": "Thay đổi mật khẩu"
     }
 }
