@@ -1,0 +1,201 @@
+$border-color: #ddd;
+$mainColor: #4680ff;
+
+ul.med-tree-default-value {
+  list-style: none;
+  border-bottom: 1px solid $border-color;
+  padding: 6px 0;
+  margin-bottom: 0;
+}
+
+ul.med-tree {
+  * {
+    padding: 0;
+    margin: 0;
+  }
+
+  padding-left: 0;
+  margin: 0;
+  list-style-type: none;
+  list-style-image: none;
+  width: 100%;
+  //overflow: auto;
+
+  &.med-root-tree > li {
+    margin-right: 0;
+  }
+
+  .med-tree-icon, .med-tree-node {
+    background-image: url('/assets/images/32px.png');
+    background-repeat: no-repeat;
+  }
+
+  li {
+    display: block;
+    min-height: 24px;
+    line-height: 24px;
+    margin-left: 24px;
+    min-width: 24px;
+    white-space: nowrap;
+    cursor: pointer;
+    &.med-tree-node {
+      background-position: -292px -4px;
+      background-repeat: repeat-y;
+    }
+
+    &.selected > a {
+      background-color: $mainColor;
+      color: white;
+      cursor: auto;
+
+      i.med-custom-icon {
+        background: $mainColor;
+        color: #fff;
+      }
+    }
+
+    &:last-child {
+      background: none !important;
+    }
+
+    .med-tree-icon {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      display: inline-block;
+      background-position: -68px -4px;
+      vertical-align: top;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.med-tree-loading {
+        //background-image: url('/assets/images/loading.gif');
+        background-repeat: no-repeat;
+        background-position: 3px 5px !important;
+      }
+    }
+
+    .med-tree-node-open {
+      background-position: -132px -4px !important;
+    }
+
+    .med-tree-node-close {
+      background-position: -100px -4px;
+    }
+
+    .med-tree-icon-folder {
+      background-position: -260px -4px;
+    }
+
+    .med-tree-icon-folder-open {
+      background-position: -260px -4px;
+    }
+
+    .med-icon-checkbox {
+      background-position: -166px -4px;
+    }
+
+    .hh-icon-checkbox-checked {
+      background-position: -230px -4px;
+    }
+
+    .med-icon-child-check {
+      background-position: -196px -4px;
+    }
+
+    .med-custom-icon {
+      background: #fff;
+    }
+
+    a {
+      line-height: 24px;
+      height: 24px;
+      display: inline-block;
+      color: #000;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding: 0 4px 0 1px;
+      margin: 0;
+      vertical-align: top;
+
+      &:hover {
+        background-color: $mainColor;
+        color: white;
+        cursor: auto;
+        text-decoration: none;
+
+        i.med-custom-icon {
+          background: $mainColor;
+          color: #fff;
+        }
+      }
+      &.med-disabled {
+        &:hover {
+          background: $border-color !important;
+        }
+      }
+
+      &:active, &:focus, &:visited {
+        outline: none;
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul.sub-tree {
+    &.sub-tree-close {
+      display: none;
+    }
+  }
+}
+
+.med-tree-dropdown {
+  position: relative;
+  .med-tree-label {
+    border: 1px solid lightgray;
+    line-height: 2.0 !important;
+    i {
+      font-size: 16px;
+    }
+  }
+  button {
+    border-radius: 0;
+  }
+
+  .med-content-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border: 1px solid $border-color;
+    min-width: 350px;
+    box-shadow: 5px 5px rgba(102, 102, 102, .1);
+    margin-bottom: 10px;
+    background: white;
+    z-index: 9999;
+    overflow-x: auto;
+
+    .med-tree-content {
+      overflow-y: hidden;
+
+      med-tree {
+        ul.med-tree.med-root-tree {
+          padding: 10px;
+        }
+      }
+    }
+
+    .med-tree-footer {
+      border-top: 1px solid $border-color;
+      padding: 10px;
+    }
+  }
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}

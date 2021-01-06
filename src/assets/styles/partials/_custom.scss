@@ -432,11 +432,11 @@ button:focus {
 
   >.pcoded-container {
     >.pcoded-header {
-      z-index: 999999;
+      z-index: 10;
     }
 
     >.showChat {
-      z-index: 999999;
+      z-index: 10;
     }
 
     >.pcoded-main-container {
@@ -626,4 +626,83 @@ button:focus {
   .card-header{
       padding: 20px;
   }
+}
+.fixed-table-body {
+  position: relative;
+  min-height: 150px !important;
+
+}
+
+.loading-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+  color: #333;
+  .indicator {
+    padding: 50px;
+    i {
+      color: $primary-color;
+      font-size: 1.3rem;
+      margin-right: 5px;
+    }
+  }
+
+}
+
+.loading-no-bg {
+  .loading-container {
+    background: transparent;
+  }
+}
+
+.loading-lg {
+  > .loading-container {
+    min-height: 350px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+
+.control-label {
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.has-error .help-block,
+.has-error .control-label,
+.has-error .radio,
+.has-error .checkbox,
+.has-error .radio-inline,
+.has-error .checkbox-inline,
+.has-error.radio label,
+.has-error.checkbox label,
+.has-error.radio-inline label,
+.has-error.checkbox-inline label {
+  color: #a94442;
+}
+.has-error .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.has-error .form-control:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+}
+.has-error .input-group-addon {
+  color: #a94442;
+  border-color: #a94442;
+  background-color: #f2dede;
+}
+.has-error .form-control-feedback {
+  color: #a94442;
 }

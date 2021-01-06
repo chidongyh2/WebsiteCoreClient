@@ -29,6 +29,6 @@ import { RoleFormComponent } from './modules/configs/role/role-form/role-form.co
     MenuFormComponent,
     RoleListComponent,
     RoleFormComponent
-  ],
+  ]
 })
 export class MainModule { }

@@ -1,0 +1,65 @@
+<div tabindex="=0" class="wrap-mp-select" (clickOutSideGroup)="outSizeClick()" (blur)="onTouched()">
+    <button class="mp-select-button" type="button" (click)="toggleDropdown($event)" [disabled]="readonly" [id]="elementId"
+            [ngClass]="classColor"
+            [class.disabled]="readonly"
+            [ngStyle]="{'width' : width ? width + 'px' : '100%',
+            'border-color': classColor? 'red' : '#ddd'
+            }">
+      <i *ngIf="icon" class="icon-prepend {{icon}}"></i>
+      {{ !label ? title : label }}
+      <!--  <a class="remove-value dx-icon-clear" *ngIf="isShowRemove && label !== title"-->
+      <!--     (click)="remove($event)">-->
+      <!--  </a>-->
+      <span class="wrap-icon-suggest" [ngStyle]="{color: classColor? 'white': ''}"><i class="icon-suggest fa fa-sort-desc"></i></span>
+    </button>
+    <div class="mp-select-menu"  [hidden]="!_settings.defaultOpen">
+      <div class="search-box" *ngIf="liveSearch">
+        <input [id]="inputId" type="text" class="form-control w100pc"
+               placeholder="Enter keyword"
+               (keydown.enter)="$event.preventDefault()"
+               (keyup)="searchKeyUp($event, searchBox.value)"
+               #searchBox/>
+      </div>
+      <hr *ngIf="liveSearch"/>
+      <ul class="wrapper-list-menu" *ngIf="!readonly">
+        <li *ngIf="data?.length > 0 && title" (click)="confirmSelect({id: null, name: title})">
+          {{title}}
+        </li>
+        <li *ngIf="isSearching" class="center">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </li>
+        <li class="mp-select-item" *ngFor="let item of source"
+            [class.selected]="item.selected"
+            [class.active]="item.active"
+            (click)="confirmSelect(item)">
+          <i *ngIf="item.icon" [ngClass]="item.icon"></i>
+          {{item[_settings.textField]}}
+          <i class="fa fa-check nh-selected-icon color-green"
+             *ngIf="item.selected && multiple"></i>
+        </li>
+        <li *ngIf="source?.length === 0 && isInsertValue" class="background-none">
+          <button class="btn btn-primary btn-block" type="button" (click)="insertValue()"><i
+            class="fa fa-plus"></i>Thêm mới
+          </button>
+        </li>
+        <li *ngIf="source?.length === 0 && !isInsertValue" class="no-data">Không có dữ liệu</li>
+      </ul>
+    </div>
+  </div>
+  <swal
+      #modalAcceptChangeEvent
+      i18n="@@modalAcceptChangeEvent"
+      i18n-title
+      i18n-text
+      (confirm)="selectItem()"
+      (cancel)="cancelConfirm()"
+      title="Thay đổi sự kiện sẽ hủy bỏ toàn bộ thiết lập của sự kiện đang cấu hình. Xác nhận thay đổi?"
+      type="question"
+      [showCancelButton]="true"
+      [allowOutsideClick]="false"
+      [confirmButtonText]="'Có' | translate"
+      [reverseButtons]="true"
+      [cancelButtonText]="'Không' | translate"
+  >
+  </swal>
+  

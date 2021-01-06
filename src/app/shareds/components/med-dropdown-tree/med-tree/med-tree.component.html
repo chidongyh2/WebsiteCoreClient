@@ -1,0 +1,27 @@
+<ul class="med-tree med-root-tree">
+    <ng-template #recursiveTree let-data>
+      <li *ngFor="let node of data">
+        <i class="med-tree-icon"
+           (click)="expand(node)"
+           [class.med-tree-loading]="node.isLoading && node.childCount && node.childCount > 0"
+           [class.med-tree-node-close]="!node.opened && ((node.childCount && node.childCount > 0)
+                     || (node.children && node.children.length > 0))"
+           [class.med-tree-node-open]="node.opened && ((node.childCount && node.childCount > 0)
+                     || (node.children && node.children.length > 0))"
+        ></i>
+        <a href="javascript://" [class.med-disabled]="node.isDisabled" (click)="selectNode(node)" [attr.title]="node[_settings.textField]">
+  <!--        <i class="med-tree-icon"-->
+  <!--           [ngClass]="node[_settings.iconId] ? node[_settings.iconId] + ' med-custom-icon' : 'med-tree-icon-folder'"></i>-->
+          {{ node[_settings.textField] }}
+        </a>
+        <ul *ngIf="node[_settings.childrenKey] && node[_settings.childrenKey].length > 0" class="sub-tree"
+            [class.sub-tree-close]="!node.opened">
+          <ng-container *ngTemplateOutlet="recursiveTree; context: {$implicit: node[_settings.childrenKey]}"
+          >
+          </ng-container>
+        </ul>
+      </li>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveTree; context:{ $implicit: data }"></ng-container>
+  </ul>
+  

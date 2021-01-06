@@ -21,5 +21,41 @@
     "profile": {
         "info": "Thông tin người dùng",
         "changePassword": "Thay đổi mật khẩu"
+    },
+    "button": {
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "saveAndContinue": "Lưu và tiếp tục"
+    },
+    "pages": {
+        "title": {
+            "add": "Thêm mới trang",
+            "edit": "Sửa trang"
+        },
+        "label": {
+            "id": "Mã trang",
+            "name": "Tên trang",
+            "description": "Mô tả",
+            "url": "Đường dẫn",
+            "isShowSidebar": "Hiện thị",
+            "isActive": "Kích hoạt",
+            "icon": "Icon",
+            "parent": "Trang cha",
+            "order": "Thứ tự"
+        },
+        "placeholder": {
+            "id": "Nhập mã trang",
+            "name": "Nhập tên trang",
+            "description": "Nhập mô tả",
+            "url": "Đường dẫn",
+            "icon": "Nhập icon",
+            "parent": "--- Chọn trang cha ---",
+            "order": "Nhập thứ tự"
+        }
+    },
+    "validation": {
+        "required": "{{title}} không được để trống",
+        "maxlength": "{{title}} không được phép vượt quá {{max}} kí tự",
+        "minLength": "{{title}} không được phép nhỏ hơn {{max}} kí tự"
     }
 }

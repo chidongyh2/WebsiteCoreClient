@@ -1,0 +1,27 @@
+<div class="med-select-date-time">
+      <div class="input-group" [class.datetime-error]="error" (click)="touched()">
+        <input [owlDateTime]="fd"
+               [(ngModel)]="datePicker"
+               (dateTimeChange)="onChangeDate($event)"
+               (focusout)="focusOut($event)"
+               class="form-control"
+    
+               placeholder="dd/mm/yyyy hh:mm:ss"
+               [readonly]="disabled">
+        <div
+          class="input-group-append">
+            <span
+              class="input-group-text calendar">
+                <i class="
+                feather
+                icon-calendar"
+                   [owlDateTimeTrigger]="fd"></i>
+            </span>
+        </div>
+        <owl-date-time #fd
+                       [disabled]="disabled"
+                       [showSecondsTimer]="true">
+        </owl-date-time>
+      </div>
+    </div>
+    

@@ -8,6 +8,9 @@ import { ISearchResult } from 'src/app/core/view-models/isearch.result';
 import { environment } from 'src/environments/environment';
 import { PageSearchViewModel } from './models/page-search.viewmodel';
 import * as _ from 'lodash';
+import { Page } from './models/page.model';
+import { IResponseResult } from 'src/app/core/view-models/iresponse.result';
+import { TreeData } from 'src/app/core/models/tree-data.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,4 +40,30 @@ export class PageService {
       return result;
     })) as Observable<SearchResultViewModel<PageSearchViewModel>>;
   }
+
+  insert(page: Page): Observable<IResponseResult> {
+    return this.http.post(`${this.url}`, page) as Observable<IResponseResult>;
+  }
+
+  update(pageMeta: Page) {
+    return this.http.post(`${this.url}/${pageMeta.id}`, pageMeta);
+  }
+
+  updateOrder(pageId: number, order: number) {
+    return this.http.post(`${this.url}/update-order`, '', {
+      params: new HttpParams()
+        .set('pageId', pageId.toString())
+        .set('order', order.toString())
+    });
+  }
+
+  delete(id: number): Observable<IResponseResult> {
+    return this.http.delete(`${this.url}/${id}`) as Observable<IResponseResult>;
+  }
+
+
+  getPageTree(): Observable<TreeData[]> {
+    return this.http.get(`${this.url}/trees`) as Observable<TreeData[]>;
+  }
+
 }

@@ -1,0 +1,16 @@
+<div class="med-input {{classes}}" [class.disabled]="isDisabled">
+    <i *ngIf="icon" class="icon-prepend {{icon}}"></i>
+    <input
+        #medInput@
+        [attr.type]="type" class="form-control w100pc"
+        [class.cm-pdl-10]="!icon"
+        [value]="value"
+        [id]="elementId" placeholder="{{placeholder | translate}}"
+        (keyup)="onKeyup($event)"
+        (blur)="onBlur($event)"
+        (change)="onChange($event.target.value)"
+        name="medInputElement"/>
+    <a class="remove-value dx-icon-clear" *ngIf="value && allowRemove"
+       (click)="removeValue()">
+    </a>
+</div>

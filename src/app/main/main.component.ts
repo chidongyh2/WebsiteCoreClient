@@ -1,3 +1,5 @@
+import { EventConst } from './../core/constants/event.const';
+import { SystemManager } from './../core/services/system-manager.service';
 import { fakeMenu } from './../core/layout/fake-menu';
 import { MenuItem } from './../core/interfaces/menu-item.model';
 import { Component, Inject, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
@@ -18,7 +20,9 @@ export class MainComponent implements OnInit, OnChanges, OnDestroy {
   tabMenu$: Observable<MenuItem[]>;
   activedTab$: Observable<string>;
   subscription: Subject<void> = new Subject();
-  constructor(@Inject(PAGE_ID) public pageId: IPageId, public store: Store<AppState>) { }
+  constructor(@Inject(PAGE_ID) public pageId: IPageId,
+  private systemManager: SystemManager,
+  public store: Store<AppState>) { }
 
   ngOnInit() {
     this.tabMenu$ = this.store.pipe(select(selectTab));
@@ -41,7 +45,10 @@ export class MainComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public onReloadClick(tab: any, $event): void {
-    console.log('onReloadClick', tab);
+    this.systemManager.broadcast({
+      name: EventConst.ReloadPage,
+      content: tab
+    })
     $event.preventDefault();
   }
 

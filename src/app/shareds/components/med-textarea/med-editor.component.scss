@@ -1,0 +1,12 @@
+:host ::ng-deep .ck-editor__editable {
+    min-height: 100px !important;
+    max-height: 400px !important;
+  }
+  
+  .advanced {
+    ::ng-deep .ck-editor__editable {
+      min-height: 200px !important;
+      max-height: 800px !important;
+    }
+  }
+  

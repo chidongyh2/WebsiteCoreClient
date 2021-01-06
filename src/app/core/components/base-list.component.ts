@@ -1,13 +1,17 @@
-import { Directive, OnInit } from "@angular/core";
+import { EventConst } from './../constants/event.const';
+import { SystemManager } from './../services/system-manager.service';
+import { Directive, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subject, Subscriber } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { BriefUser } from "../models/brief-user.model";
 import { PermissionViewModel } from "../view-models/permission.viewmodel";
 import { SearchResultViewModel } from "../view-models/search-result.viewmodel";
+import { AppInjector } from 'src/app/shareds/helpers/app-injector';
 
 @Directive()
-export abstract class BaseListComponent<T> implements OnInit {
+export abstract class BaseListComponent<T> implements OnInit, OnDestroy {
     currentUser: BriefUser;
+    systemManager: SystemManager;
     isLoading: boolean;
     keyword: string;
     items: T[];
@@ -16,6 +20,7 @@ export abstract class BaseListComponent<T> implements OnInit {
     params: { [key: string]: any }
     query: string
     sort: string
+    currentPageId: number
     totalRows: number
     subscribers: any = {};
     permission: PermissionViewModel = {
@@ -30,10 +35,20 @@ export abstract class BaseListComponent<T> implements OnInit {
     };
     protected refreshTrigger = new Subject()
 
-    ngOnInit() {
-        this.subscribe()
+    constructor() {
+
     }
-    protected abstract fetch(): Observable<SearchResultViewModel<T>>
+
+    ngOnInit() {
+        this.systemManager = AppInjector.get(SystemManager);
+        this.subscribe()
+        this.subscribers = this.systemManager.subscribe(EventConst.ReloadPage, (evt) => {
+            if (evt?.content?.id && evt?.content?.id === this.currentPageId) {
+                this.refresh();
+            }
+        })
+    }
+    public abstract fetch(): Observable<SearchResultViewModel<T>>
     protected subscribe() {
         const next = result => {
             this.isLoading = false
@@ -77,4 +92,7 @@ export abstract class BaseListComponent<T> implements OnInit {
         this.refreshTrigger.next()
     }
 
+    refresh() {
+        this.refreshTrigger.next()
+      }
 }

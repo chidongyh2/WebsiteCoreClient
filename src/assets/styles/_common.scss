@@ -293,3 +293,7 @@
 .cm-mgr-20 {
   @include med-mgr(20px);
 }
+
+.color-red {
+  color: red !important;
+}

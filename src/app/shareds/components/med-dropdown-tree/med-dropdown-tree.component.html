@@ -1,0 +1,37 @@
+<div class="med-tree-dropdown">
+    <button class="med-tree-label btn default text-ellipsis" type="button" (click)="dropdownButtonClick()">
+      {{ selectTitle }}
+      <span class="caret cm-right">
+        <i *ngIf="!isShow" class="feather minimize-card icon-chevron-down"></i>
+        <i *ngIf="isShow" class="feather minimize-card icon-chevron-up"></i>
+      </span>
+    </button>
+    <div class="med-content-wrapper" [hidden]="!isShow"
+         [style.width]="width + 'px'">
+      <ul class="med-tree-default-value">
+        <li class="center"><a (click)="selectDefaultNode()">{{ title }}</a></li>
+      </ul>
+      <div class="med-tree-content">
+        <med-tree
+          [dataDisable]="_dataDisable"
+          [height]="250"
+          [data]="data"
+          [settings]="_settings"
+          [isMultiple]="isMultiple"
+          [selectedIds]="value"
+          [isChoseParent]="isChoseParent"
+          (nodeSelected)="onNodeSelected($event)"
+          (nodeExpanded)="onNodeExpanded($event)"
+        ></med-tree>
+      </div>
+      <div class="med-tree-footer" *ngIf="isMultiple">
+        <button class="btn blue cm-mgr-5" type="button" (click)="acceptButtonClick()">
+          {{ acceptText }}
+        </button>
+        <button class="btn red" type="button" (click)="cancelButtonClick()">
+          {{ cancelText }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

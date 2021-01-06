@@ -1,0 +1,21 @@
+<div class="mp-select-date">
+    <div class="input-group">
+      <input
+        class="form-control input-datepicker border-right-0"
+        id="date"
+        ngbDatepicker
+        #date="ngbDatepicker"
+        type="text"
+        [(ngModel)]="datePicker"
+        (dateSelect)="onChangeDate()"
+        [minDate]="{year: 1950, month: 1, day: 1}"
+        placeholder="dd/mm/yyyy"
+      />
+      <div class="input-group-append border-left-0">
+        <span class="input-group-text calendar" (click)="date.toggle()">
+          <i class="feather icon-calendar text-dark"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+  

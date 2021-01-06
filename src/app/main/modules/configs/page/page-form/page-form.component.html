@@ -1,1 +1,77 @@
-<p>page-form works!</p>
+<form class="form-horizontal" (ngSubmit)="onSave()" [formGroup]="model"
+    [class.ng-submitted]="isSubmitted || isCreateAnother">
+    <div class="modal-header">
+        <h5 class="modal-title" *ngIf="page.id === undefined">{{'pages.title.add' | translate}}</h5>
+        <h5 class="modal-title" *ngIf="page.id !== undefined">{{'pages.title.edit' | translate}}</h5>
+        <button type="button" class="close" (click)="openClose()" title="Hủy">&times;</button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group" [class.has-error]="formErrors.id">
+                    <label MedLabel="pages.label.id" class="control-label" [required]="true"></label>
+                    <med-input type="number" id="pageId" placeholder="pages.placeholder.id" [allowRemove]="false"
+                        formControlName="id" aria-autocomplete="off" [attr.disabled]="isUpdate ? '' : null">
+                    </med-input>
+                    <div class="help-block" *ngIf="formErrors.id">{{formErrors.id}}</div>
+                </div>
+                <div class="form-group" [class.has-error]="formErrors.name">
+                    <label MedLabel="pages.label.name" class="control-label" [required]="true"></label>
+                    <med-input placeholder="pages.placeholder.name" formControlName="name">
+                    </med-input>
+                    <div class="help-block" *ngIf="formErrors.name">{{formErrors.name}}</div>
+                </div>
+                <div class="form-group" [class.has-error]="formErrors.url">
+                    <label MedLabel="pages.label.url" class="control-label"></label>
+                    <med-input type="text" placeholder="pages.placeholder.url" formControlName="url">
+                    </med-input>
+                </div>
+                <div class="form-group" [class.has-error]="formErrors.description">
+                    <label MedLabel="pages.label.description" class="control-label"></label>
+                    <textarea class="form-control" rows="3" [placeholder]="'pages.placeholder.description' | translate"
+                        formControlName="description"></textarea>
+                </div>
+            </div><!-- END: left col -->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label MedLabel="Trang cha" class="control-label"></label>
+                    <med-dropdown-tree [title]="'pages.placeholder.parent' | translate" [data]="pageTree" [width]="350"
+                        formControlName="parentId"></med-dropdown-tree>
+                    <div class="help-block"></div>
+                </div>
+                <div class="form-group" [class.has-error]="formErrors.icon">
+                    <label MedLabel="pages.label.icon" class="control-label"></label>
+                    <med-input type="text" placeholder="pages.placeholder.id" formControlName="icon">
+                    </med-input>
+                    <div class="help-block" *ngIf="formErrors.icon">{{formErrors.icon | translate}}</div>
+                </div>
+                <div class="form-group" [class.has-error]="formErrors.order">
+                    <label MedLabel="pages.label.order" class="control-label"></label>
+                    <med-input type="number" placeholder="pages.placeholder.order" [allowRemove]="false"
+                        aria-autocomplete="off" formControlName="order">
+                    </med-input>
+                    <div class="help-block"></div>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <med-switch-toggle label="pages.label.isActive" color="primary" formControlName="isActive">
+                    </med-switch-toggle>
+                    <med-switch-toggle class="ml-5" label="pages.label.isShowSidebar" color="primary"
+                        formControlName="isActive">
+                    </med-switch-toggle>
+                </div>
+            </div><!-- END: right col -->
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default float-right" title="Hủy" (click)="openClose()">&nbsp;
+            <span translate="button.cancel"></span>
+        </button>
+        <button type="submit" class="btn btn-primary float-right
+      m-r-5" title="Lưu">&nbsp;<span translate="button.save"></span>
+        </button>
+        <button type="button" class="btn btn-primary float-right m-r-5" [title]="'button.saveAndContinue' | translate"
+            (click)="onSaveAnContinue()" *ngIf="page.id === undefined">&nbsp;<span
+                translate="button.saveAndContinue"></span>
+        </button>
+    </div>
+</form>

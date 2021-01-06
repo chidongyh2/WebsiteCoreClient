@@ -1,0 +1,36 @@
+.calendar {
+    color: #495057 !important;
+  }
+  .datetime-error {
+    border: 1px solid red;
+  }
+  
+  .med-select-date-time {
+    .input-group {
+      border: 1px solid lightgray !important;
+      border-radius: 3px !important;
+      &:focus, &:hover {
+        border: 1px solid blue !important;
+        border-radius: 2px !important;
+      }
+      .form-control {
+        border: none !important;
+        &:hover, &:focus {
+          border: none !important;
+        }
+      }
+      .input-group-append {
+        border: none !important;
+        &:hover, &:focus {
+          border: none !important;
+        }
+        .input-group-text {
+          border: none !important;
+          &:hover, &:focus {
+            border: none !important;
+          }
+        }
+      }
+    }
+  }
+  
