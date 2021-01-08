@@ -33,7 +33,7 @@ export class PageService {
           const idPathArray = page.idPath.split('.');
           page.namePrefix = '';
           for (let i = 1; i < idPathArray.length; i++) {
-            page.namePrefix += '<i class="fa fa-long-arrow-right cm-mgr-5"></i>';
+            page.namePrefix += '<i class="fa fa-arrow-right cm-mgr-5"></i>';
           }
         });
       }

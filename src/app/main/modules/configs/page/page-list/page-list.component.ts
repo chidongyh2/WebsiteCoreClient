@@ -7,6 +7,7 @@ import { BaseListComponent } from 'src/app/core/components/base-list.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Page } from '../models/page.model';
 import { PageListMetadata } from './page-list.metadata';
+import { IResponseResult } from 'src/app/core/view-models/iresponse.result';
 
 @Component({
   selector: 'page-list',
@@ -57,6 +58,11 @@ export class PageListComponent extends BaseListComponent<PageSearchViewModel> im
   }
  
   deletePage(item: PageSearchViewModel) {
-
+    this.subscribers.deletePage = this.pageService.delete(item.id)
+    .subscribe((result: IResponseResult) => {
+        if (result.code > 0) {
+          this.refresh();
+        }
+    });
   }
 }

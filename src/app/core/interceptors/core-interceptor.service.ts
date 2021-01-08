@@ -1,10 +1,10 @@
 import { ActionAuthLogout } from './../../auth/auth.actions';
 import { AppState } from './../states/core.state';
 import { APP_CONFIG, IAppConfig } from '../../configs/app.config';
-import { HttpErrorResponse, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Inject, Injectable, Injector } from "@angular/core";
 import { Router } from '@angular/router';
-import { catchError, flatMap } from 'rxjs/operators';
+import { catchError, flatMap, tap } from 'rxjs/operators';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { AUTH_REFRESH_TOKEN, AUTH_TOKEN } from 'src/app/auth/auth.constants';
 import { Observable, of, throwError } from 'rxjs';
@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth/auth.service';
+import { isDefined } from 'src/app/shareds/utils/common.util';
 
 @Injectable()
 export class CoreInterceptorService implements HttpInterceptor {
@@ -76,8 +77,13 @@ export class CoreInterceptorService implements HttpInterceptor {
             if (apiReq.headers.get('Content-Type') === 'clear') {
                 apiReq.headers.delete('Content-Type', 'clear');
             }
-            
+
             return next.handle(apiReq).pipe(
+                tap((res) => {
+                    if (res instanceof HttpResponse && !(res instanceof HttpErrorResponse)) {
+                        this.handlingSuccess(apiReq, res);
+                    }
+                }),
                 catchError(response => {
                     if (response instanceof HttpErrorResponse) {
                         if (response.status === 401) {
@@ -90,13 +96,14 @@ export class CoreInterceptorService implements HttpInterceptor {
                                             headers: req.headers.set('Authorization', `bearer ${result}`)
                                         });
                                         return next.handle(reqRefreshAuth)
-                                            .pipe(catchError(refreshTokenResponse => {
-                                                if (refreshTokenResponse instanceof HttpErrorResponse) {
-                                                    this.handlingError(refreshTokenResponse);
-                                                }
-                                                this.store.dispatch(new ActionAuthLogout());
-                                                return of(null);
-                                            }));
+                                            .pipe(
+                                                catchError(refreshTokenResponse => {
+                                                    if (refreshTokenResponse instanceof HttpErrorResponse) {
+                                                        this.handlingError(refreshTokenResponse);
+                                                    }
+                                                    this.store.dispatch(new ActionAuthLogout());
+                                                    return of(null);
+                                                }));
                                     } else {
                                         this.store.dispatch(new ActionAuthLogout());
                                         return throwError(this.translate.instant('auth.error.cantRefreshToken'));
@@ -158,10 +165,22 @@ export class CoreInterceptorService implements HttpInterceptor {
                 // }
                 break;
             case 500:
+            case 502:
                 this.toastr.error(this.translate.instant('auth.error.somethingWentWrong'));
                 break;
+
         }
         return throwError(response);
     }
 
+
+    private handlingSuccess(request: HttpRequest<any>, res: any) {
+        const methodHandle: string[] = ['POST', 'PUT', 'PATCH', 'DELETE'];
+        if (isDefined(request.method) && methodHandle.some(x => x === request.method.toUpperCase())) {
+            const useResponseMessage = isDefined(res.body) && isDefined(res.body.message);
+            if (useResponseMessage) {
+                this.toastr.success(res.body.message);
+            }
+        }
+    }
 }

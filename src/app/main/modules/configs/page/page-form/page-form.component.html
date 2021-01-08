@@ -11,7 +11,7 @@
                 <div class="form-group" [class.has-error]="formErrors.id">
                     <label MedLabel="pages.label.id" class="control-label" [required]="true"></label>
                     <med-input type="number" id="pageId" placeholder="pages.placeholder.id" [allowRemove]="false"
-                        formControlName="id" aria-autocomplete="off" [attr.disabled]="isUpdate ? '' : null">
+                        formControlName="id" [isDisabled]="isUpdate" aria-autocomplete="off">
                     </med-input>
                     <div class="help-block" *ngIf="formErrors.id">{{formErrors.id}}</div>
                 </div>

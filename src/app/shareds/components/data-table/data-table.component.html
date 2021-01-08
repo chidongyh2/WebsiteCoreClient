@@ -17,10 +17,12 @@
             </div>
           </ng-container>
         </th>
-        <th *ngFor="let col of columns" [sortable]="col" [sort]="metadata.sort" (sorted)="sort($event)"
-          [ngClass]="col?.headerCss" [style.width]="col?.width || 'auto'" [style.text-align]="col?.align || 'left'">
+        <th *ngFor="let col of columns"[ngClass]="col?.headerCss"
+        [style.width]="col?.width || 'auto'" [style.text-align]="col?.align || 'left'">
           <div class="th-inner">
             {{ col?.name | translate }}
+            <span class="ml-1" [sortable]="col" [sort]="metadata.sort" (sorted)="sort($event)">
+            </span>
           </div>
           <div class="fht-cell"></div>
         </th>

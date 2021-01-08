@@ -99,6 +99,7 @@ export abstract class BaseListComponent<T> implements OnInit, OnDestroy {
     }
 
     onSorted(sort: string) {
+        console.log(sort)
         this.metadata.sort = sort
         this.sort = sort
         this.currentPage = 1

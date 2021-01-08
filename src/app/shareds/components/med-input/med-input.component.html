@@ -2,6 +2,7 @@
     <i *ngIf="icon" class="icon-prepend {{icon}}"></i>
     <input
         #medInput@
+        [attr.disabled]="isDisabled ? '' : null"
         [attr.type]="type" class="form-control w100pc"
         [class.cm-pdl-10]="!icon"
         [value]="value"

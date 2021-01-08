@@ -31,7 +31,8 @@
     "pages": {
         "title": {
             "add": "Thêm mới trang",
-            "edit": "Sửa trang"
+            "edit": "Sửa trang",
+            "confirmDelete": "Bạn có chắc muốn xóa trang ?"
         },
         "label": {
             "id": "Mã trang",
@@ -76,5 +77,8 @@
     },
     "pageTitle": {
         "page": "Danh sách trang"
+    },
+    "noResults": {
+        "pages": "Không tìm thấy dữ liệu trang"
     }
 }

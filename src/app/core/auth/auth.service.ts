@@ -26,7 +26,8 @@ export class AuthService {
     }
 
     getRefreshToken(refreshToken) {
-        const body = `grant_type=refresh_token&client_id=${this.appConfig.CLIENT_ID}&refresh_token=${refreshToken}`;
+        const body = `grant_type=refresh_token&client_id=${this.appConfig.CLIENT_ID}&refresh_token=${refreshToken}
+        &client_secret=${this.appConfig.CLIEN_SECRET}`;
         return this.http.post(`${environment.apiGatewayUrl}auth/connect/token`, body, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/x-www-form-urlencoded'

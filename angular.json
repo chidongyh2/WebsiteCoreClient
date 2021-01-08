@@ -53,7 +53,8 @@
               "src/assets/fonts/fontawesome/css/all.min.css",
               "src/assets/styles/app.scss",
               "src/assets/styles/_theme.scss",
-              "src/assets/icons/feather/css/feather.css"
+              "src/assets/icons/feather/css/feather.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

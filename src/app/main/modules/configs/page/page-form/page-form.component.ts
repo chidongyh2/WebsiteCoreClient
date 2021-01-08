@@ -113,7 +113,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
           .pipe(finalize(() => this.isSaving = false))
           .subscribe((result: IResponseResult) => {
             this.isModified = true;
-            this.activeModal.dismiss(true);
+            this.activeModal.close(true);
           });
       } else {
         this.pageService
@@ -127,7 +127,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
               this.isCreateAnother = false;
               this.model.reset();
             } else {
-              this.activeModal.dismiss(true);
+              this.activeModal.close(true);
             }
           });
       }

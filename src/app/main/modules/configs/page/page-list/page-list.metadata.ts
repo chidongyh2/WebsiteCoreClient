@@ -4,7 +4,7 @@ import { DataTableDataDisplayType, DataTableMetadata, DataTableSelectMode } from
 export const PageListMetadata: DataTableMetadata = {
     cssClass: 'table-framed',
     selectMode: DataTableSelectMode.none,
-    noResultMessage: marker('noResults.courses'),
+    noResultMessage: marker('noResult.pages'),
     noResultIcon: 'far fa-chalkboard',
     columns: [{
       name: 'STT',
@@ -14,8 +14,9 @@ export const PageListMetadata: DataTableMetadata = {
       headerCss: 'text-center'
     }, {
       name: marker('pages.label.name'),
-      fieldName: 'name',
-      displayType: DataTableDataDisplayType.text,
+      fieldName: 'Name',
+      templateName: 'name',
+      displayType: DataTableDataDisplayType.template,
       width: '40%',
       sortable: true
     }, {
