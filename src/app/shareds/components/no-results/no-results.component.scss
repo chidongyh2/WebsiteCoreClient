@@ -1,0 +1,50 @@
+:host.has-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  >.no-results-container {
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.no-results-container {
+  border: solid 1px rgba(150, 150, 150, 0.2);
+  background-color: #fff;
+  padding: 35px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  border-radius: 0px;
+  margin-bottom: 10px;
+
+  i {
+    font-size: 3rem;
+    margin-bottom: 5px;
+  }
+
+  .image {
+    max-width: 150px;
+    margin: 20px auto;
+    img {
+      width: 100%;
+    }
+    & + .message {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #555;
+      text-align: center;
+    }
+  }
+
+  .description {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}

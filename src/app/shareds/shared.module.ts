@@ -1,3 +1,4 @@
+import { NoResultsComponent } from './components/no-results/no-results.component';
 import { MedLabelDirective } from './directives/med-label.directive';
 import { AccordionDirective } from './directives/accordion/accordion.directive';
 import { CommonModule } from "@angular/common";
@@ -25,6 +26,12 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MedSwitchToggleComponent } from './components/med-switch-toggle/med-switch-toggle.component';
 import { MedEditorComponent } from './components/med-textarea/med-editor.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { OutsideControlClickDirective } from './directives/outside-control-click.directive';
+import { MedButtonComponent } from './components/med-button/med-button.component';
+import { SortableDirective } from './components/data-table/sortable.directive';
+import { DataTableCellTemplateDirective } from './components/data-table/data-table-cell-template.directive';
+import { DataTableComponent } from './components/data-table/data-table.component';
+import { HoverCardModule } from './components/hover-card/hover-card.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -38,9 +45,16 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         OwlDateTimeModule,
         CKEditorModule,
         OwlNativeDateTimeModule,
+        HoverCardModule,
         SweetAlert2Module.forRoot()
     ],
     declarations: [
+        // for template table
+        DataTableComponent,
+        DataTableCellTemplateDirective,
+        SortableDirective,
+        NoResultsComponent,
+        // end for template table
         AccordionAnchorDirective,
         AccordionLinkDirective,
         AccordionDirective,
@@ -57,9 +71,17 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         MedLabelDirective,
         MedInputComponent,
         MedSwitchToggleComponent,
-        MedEditorComponent
+        MedEditorComponent,
+        OutsideControlClickDirective,
+        MedButtonComponent
     ],
     exports: [
+        // for template table
+        DataTableComponent,
+        DataTableCellTemplateDirective,
+        SortableDirective,
+        NoResultsComponent,
+        // end for template table
         TranslateModule,
         PerfectScrollbarModule,
         FormsModule,
@@ -83,7 +105,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
         MedInputComponent,
         MedSwitchToggleComponent,
         MedEditorComponent,
-        SweetAlert2Module
+        SweetAlert2Module,
+        OutsideControlClickDirective,
+        MedButtonComponent
     ]
 })
 export class SharedModule {

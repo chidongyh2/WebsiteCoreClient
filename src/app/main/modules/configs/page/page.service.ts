@@ -46,7 +46,7 @@ export class PageService {
   }
 
   update(pageMeta: Page) {
-    return this.http.post(`${this.url}/${pageMeta.id}`, pageMeta);
+    return this.http.put(`${this.url}/${pageMeta.id}`, pageMeta);
   }
 
   updateOrder(pageId: number, order: number) {

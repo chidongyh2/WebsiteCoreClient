@@ -1,0 +1,69 @@
+<!-- <div class="my-2">
+  <a *ngIf="metadata.canSelectColumns" tabindex="-1" class="pointer"
+    (click)="configureColumns()">{{'link.showHideColumns' | translate}}</a>
+</div> -->
+<div class="table-responsive fixed-table-body" [loading]="isLoading">
+  <table class="table" *ngIf="data?.length" [ngClass]="metadata.cssClass">
+    <thead>
+      <tr>
+        <th class="col-selection" *ngIf="metadata?.selectMode && (metadata?.selectMode !== DataTableSelectMode.none)">
+          <ng-container *ngIf="metadata.selectMode === DataTableSelectMode.multiple && metadata.canSelectAll">
+            <div class="select-box">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" [id]="'selectall' + id" [checked]="isSelectedAll"
+                  (change)="onChangedAll($event.target.checked)">
+                <label class="custom-control-label" [for]="'selectall' + id">&nbsp;</label>
+              </div>
+            </div>
+          </ng-container>
+        </th>
+        <th *ngFor="let col of columns" [sortable]="col" [sort]="metadata.sort" (sorted)="sort($event)"
+          [ngClass]="col?.headerCss" [style.width]="col?.width || 'auto'" [style.text-align]="col?.align || 'left'">
+          <div class="th-inner">
+            {{ col?.name | translate }}
+          </div>
+          <div class="fht-cell"></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of data; index as index; first as first; last as last;" [hoverCard]="t"
+        [hoverCardTemplate]="hoverCardTemplateRef" (click)="onRowClicked(t)">
+        <td class="col-selection" *ngIf="metadata?.selectMode && metadata.selectMode !== DataTableSelectMode.none">
+          <ng-container *ngIf="metadata.selectMode === DataTableSelectMode.multiple">
+            <div class="select-box">
+              <div class="custom-control custom-checkbox" (click)="$event.stopPropagation()">
+                <input type="checkbox" class="custom-control-input" [id]="id + index" [checked]="isChecked(t)"
+                  (change)="onChanged(t, $event.target.checked)">
+                <label class="custom-control-label" [for]="id + index">&nbsp;</label>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="metadata.selectMode === DataTableSelectMode.single">
+            <input type="radio" name="datatableselection" [id]="id + index" [checked]="isChecked(t)"
+              (change)="onChanged(t, $event.target.checked)">
+          </ng-container>
+        </td>
+        <td *ngFor="let col of columns" [ngClass]="col.rowCss" [style.text-align]="col.align || 'left'">
+          <ng-container *ngIf="col.displayType === DataTableDataDisplayType.index">
+            {{ getIndex(index) }}
+          </ng-container>
+          <ng-container *ngIf="col.displayType === DataTableDataDisplayType.text">
+            {{ getText(t, col) }}
+          </ng-container>
+          <ng-container *ngIf="col.displayType === DataTableDataDisplayType.datetime">
+            {{ getDate(t, col) }}
+          </ng-container>
+          <ng-container *ngIf="col.displayType === DataTableDataDisplayType.template"
+            [ngTemplateOutlet]="getTemplate(col.templateName)"
+            [ngTemplateOutletContext]="{ $implicit: t, item: t, index: index, first: first, last: last }">
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <no-results [class.has-container]="metadata?.noResultNoBorders" *ngIf="!data?.length && !isLoading"
+    [message]="metadata?.noResultMessage | translate" [description]="metadata?.noResultDescription | translate"
+    [image]="metadata?.noResultImage" [icon]="metadata?.noResultIcon">
+  </no-results>
+</div>

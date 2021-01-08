@@ -25,7 +25,8 @@
     "button": {
         "cancel": "Hủy",
         "save": "Lưu",
-        "saveAndContinue": "Lưu và tiếp tục"
+        "saveAndContinue": "Lưu và tiếp tục",
+        "createNew": "Thêm mới"
     },
     "pages": {
         "title": {
@@ -51,11 +52,29 @@
             "icon": "Nhập icon",
             "parent": "--- Chọn trang cha ---",
             "order": "Nhập thứ tự"
+        },
+        "table": {
+            "isActive": "Trạng thái",
+            "isShowSidebar": "Hiện thị menu"
         }
     },
     "validation": {
         "required": "{{title}} không được để trống",
         "maxlength": "{{title}} không được phép vượt quá {{max}} kí tự",
         "minLength": "{{title}} không được phép nhỏ hơn {{max}} kí tự"
+    },
+    "label": {
+        "actived": "Đã kích hoạt",
+        "notActive": "Chưa kích hoạt",
+        "showed": "Đã hiện thị",
+        "notShow": "Chưa hiện thị",
+        "searchInput": "Nhập từ khóa tìm kiếm"
+    },
+    "table": {
+        "action" : "Hành động",
+        "noResult": "Không có kết quả thỏa mãn điều kiện nhập"
+    },
+    "pageTitle": {
+        "page": "Danh sách trang"
     }
 }

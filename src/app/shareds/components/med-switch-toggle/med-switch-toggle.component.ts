@@ -61,16 +61,12 @@ export class MedSwitchToggleComponent implements ControlValueAccessor {
 
   // Implement control value accessor
 
-  changed = (_: any) => {};
+  changed = (_: any) => { };
 
-  touched = (_: any) => {};
+  touched = (_: any) => { };
 
-  public writeValue(obj: any) {
-    if (isDefined(obj)) {
-      this.checked = !!obj;
-    } else {
-      this.checked = false;
-    }
+  public writeValue(status?: boolean) {
+    this.checked = status || false;
   }
 
   public registerOnChange(fn: any) {

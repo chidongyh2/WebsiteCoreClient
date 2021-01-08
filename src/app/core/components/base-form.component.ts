@@ -44,7 +44,7 @@ export class BaseFormComponent implements OnDestroy {
         this.appService = AppInjector.get(AppService);
         this.pageId = AppInjector.get(PAGE_ID);
         setTimeout(() => {
-            // this.permission = this.appService.getPermissionByPageId();
+            this.permission = this.appService.getPermissionByPageId();
         });
         this.formBuilder = AppInjector.get(FormBuilder);
     }

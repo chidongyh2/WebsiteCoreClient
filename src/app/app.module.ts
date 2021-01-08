@@ -1,3 +1,4 @@
+import { SpinnerService } from './core/spinner/spinner.service';
 import { SharedModule } from './shareds/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +14,12 @@ import { AppService } from './shareds/services/app.service';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SystemManager } from './core/services/system-manager.service';
 import { setAppInjector } from './shareds/helpers/app-injector';
+import { SpinnerComponent } from './core/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { setAppInjector } from './shareds/helpers/app-injector';
     // FEATURE
     SettingsModule
   ],
-  providers: [AuthService, AuthGuardService, AppService, SystemManager,
+  providers: [AuthService, AuthGuardService, AppService,
+    SpinnerService, SystemManager,
     { provide: 'SYSTEM_MANAGER', useValue: SystemManager },
     { provide: 'APP_SERVICE', useValue: AppService },
   ],

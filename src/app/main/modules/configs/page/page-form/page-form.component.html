@@ -56,7 +56,7 @@
                     <med-switch-toggle label="pages.label.isActive" color="primary" formControlName="isActive">
                     </med-switch-toggle>
                     <med-switch-toggle class="ml-5" label="pages.label.isShowSidebar" color="primary"
-                        formControlName="isActive">
+                        formControlName="isShowSidebar">
                     </med-switch-toggle>
                 </div>
             </div><!-- END: right col -->
@@ -66,12 +66,12 @@
         <button type="button" class="btn btn-default float-right" title="Hủy" (click)="openClose()">&nbsp;
             <span translate="button.cancel"></span>
         </button>
-        <button type="submit" class="btn btn-primary float-right
-      m-r-5" title="Lưu">&nbsp;<span translate="button.save"></span>
-        </button>
-        <button type="button" class="btn btn-primary float-right m-r-5" [title]="'button.saveAndContinue' | translate"
+        <med-button type="submit" classes="btn btn-primary float-right
+            m-r-5" title="Lưu">&nbsp;<span translate="button.save"></span>
+        </med-button>
+        <med-button type="button" classes="btn btn-primary float-right m-r-5" [title]="'button.saveAndContinue' | translate"
             (click)="onSaveAnContinue()" *ngIf="page.id === undefined">&nbsp;<span
                 translate="button.saveAndContinue"></span>
-        </button>
+        </med-button>
     </div>
 </form>

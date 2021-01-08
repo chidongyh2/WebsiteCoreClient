@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {GlobalPositionStrategy, Overlay, OverlayRef} from '@angular/cdk/overlay';
 import { BehaviorSubject } from 'rxjs';
@@ -17,7 +17,7 @@ const noop = () => { };
     {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => MedSelectComponent), multi: true},
     {provide: NG_VALIDATORS, useExisting: forwardRef(() => MedSelectComponent), multi: true}
   ],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class MedSelectComponent implements OnInit, ControlValueAccessor, OnDestroy, AfterViewInit {
   private _data: any[] = [];
@@ -84,7 +84,7 @@ export class MedSelectComponent implements OnInit, ControlValueAccessor, OnDestr
     noDataAvailablePlaceholderText: 'No data available',
     closeDropDownOnSelection: false,
     showSelectedItemsAtTop: false,
-    defaultOpen: true
+    defaultOpen: false
   };
 
   constructor(
@@ -94,6 +94,7 @@ export class MedSelectComponent implements OnInit, ControlValueAccessor, OnDestr
     private el: ElementRef, private renderer: Renderer2
   ) {
     this.inputId = `mp-select-${new Date().getTime() + Math.floor((Math.random() * 10) + 1)}`;
+    this._settings = this.defaultSettings;
   }
 
   ngAfterViewInit() {
@@ -117,15 +118,15 @@ export class MedSelectComponent implements OnInit, ControlValueAccessor, OnDestr
         this._data = values;
         this.source = values.map((item, index, aarray) => {
           let obj = item;
-          obj = Object.assign({}, ...obj, {index: index});
-          obj = Object.assign({}, ...obj, {active: false});
+          obj = Object.assign({}, obj, {index: index});
+          obj = Object.assign({}, obj, {active: false});
 
           if (this.value && this.value instanceof Array) {
-            aarray[index] = Object.assign({}, ...item, {selected: this.value.indexOf(item[this._settings.idField]) > -1});
-            obj = Object.assign({}, ...obj, {selected: this.value.indexOf(item[this._settings.idField]) > -1});
+            aarray[index] = Object.assign({}, item, {selected: this.value.indexOf(item[this._settings.idField]) > -1});
+            obj = Object.assign({}, obj, {selected: this.value.indexOf(item[this._settings.idField]) > -1});
           } else {
-            aarray[index] = Object.assign({}, ...item, {selected: item[this._settings.idField] === this.value});
-            obj = Object.assign({}, ...obj, {selected: item[this._settings.idField] === this.value});
+            aarray[index] = Object.assign({}, item, {selected: item[this._settings.idField] === this.value});
+            obj = Object.assign({}, obj, {selected: item[this._settings.idField] === this.value});
           }
           return obj;
         });
@@ -499,5 +500,4 @@ export class MedSelectComponent implements OnInit, ControlValueAccessor, OnDestr
   outSizeClick() {
     this._settings.defaultOpen = false;
   }
-
 }

@@ -18,7 +18,6 @@ import * as _ from 'lodash'
 })
 export class PageFormComponent extends BaseFormComponent implements OnInit {
   page: Page = new Page()
-  id: number
   pageTree: TreeData[]
   constructor(private fb: FormBuilder,
     private utilService: UtilService,
@@ -32,6 +31,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
   ngOnInit(): void {
     this.getPageTree();
     this.buildForm();
+    console.log(this.page)
   }
 
   buildForm() {
@@ -66,6 +66,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
         Validators.required
       ]],
       isActive: [this.page.isActive],
+      isShowSidebar: [this.page.isShowSidebar],
       url: [this.page.url, [
         Validators.maxLength(500)
       ]],
@@ -112,7 +113,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
           .pipe(finalize(() => this.isSaving = false))
           .subscribe((result: IResponseResult) => {
             this.isModified = true;
-            this.activeModal.dismiss();
+            this.activeModal.dismiss(true);
           });
       } else {
         this.pageService
@@ -126,7 +127,7 @@ export class PageFormComponent extends BaseFormComponent implements OnInit {
               this.isCreateAnother = false;
               this.model.reset();
             } else {
-              this.activeModal.dismiss();
+              this.activeModal.dismiss(true);
             }
           });
       }

@@ -12,3 +12,4 @@ export const AUTH_PERMISSION = 'AUTH.PERMISSION';
 export const AUTH_CHANGE = 'AUTH.CHANGE';
 export const AUTH_TABARGS = 'AUTH.TABARGS';
 export const AUTH_ALLOW_OPEN_TABS = 15;
+export const SUPER_ADMIN_ID = '6a04024a-77b9-4ed1-a05b-cf4b50a3f5df';

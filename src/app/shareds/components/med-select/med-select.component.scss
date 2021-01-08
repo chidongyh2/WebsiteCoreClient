@@ -1,48 +1,52 @@
-app-mp-select {
+$border-color: #cccccc;
+$primary-color:#448aff;
+med-select {
     position: relative !important;
     width: 100%;
     font-size: inherit;
     font-family: inherit;
-    button.mp-select-button {
+    button.med-select-button {
       width: 100%;
-      min-width: 100px;
+      min-width: 150px;
       text-overflow: ellipsis;
       white-space: normal;
       overflow: hidden;
       margin: 0 !important;
       min-height: 33px;
       max-height: 34px;
-      border: 1px solid #ddd;
-      border-radius: 0px !important;
-      //background: white;
+      border: 1px solid $border-color !important;
+      border-radius: 2px;
+      background: white;
       text-align: left;
       padding: 7px 5px 7px 5px;
       position: relative;
       &:focus {
         border-radius: 0 !important;
-        border: 1px solid #80bdff;
+        border: 1px solid $primary-color;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
       }
       .wrap-icon-suggest {
         float: right;
         color: #0E1729;
         margin-top: 0px !important;
+        position: absolute;
+        top: 6px;
+        right: 5px;
       }
       span {
         float: right;
         margin-top: 7px;
-        color: #0072BC;
+        color: $primary-color;
       }
   
       .icon-prepend {
         border-right: 1px solid #c2c2c2;
         padding-right: 6px;
-        color: #0072BC;
+        color: $primary-color;
         top: 6px;
         font-size: 14px;
         line-height: 20px;
         text-align: center;
-        font-weight: normal !important;
       }
   
       .remove-value {
@@ -63,7 +67,7 @@ app-mp-select {
       }
     }
   
-    .mp-select-menu {
+    .med-select-menu {
       display: block;
       //border: 1px solid $borderColor;
       background: white;
@@ -83,7 +87,7 @@ app-mp-select {
         height: 0;
         position: absolute;
       }
-      &.mp-menu-top {
+      &.med-menu-top {
         margin-bottom: 10px;
   
         &:before {
@@ -101,7 +105,7 @@ app-mp-select {
           border-top: 7px solid white;
         }
       }
-      &.mp-menu-bottom {
+      &.med-menu-bottom {
         margin-top: 10px;
   
         &:before {
@@ -118,7 +122,7 @@ app-mp-select {
           border-bottom: 7px solid white;
         }
       }
-      &.mp-menu-left {
+      &.med-menu-left {
         &:before {
           left: 30px;
         }
@@ -126,7 +130,7 @@ app-mp-select {
           left: 31px;
         }
       }
-      &.mp-menu-right {
+      &.med-menu-right {
         &:before {
           right: 30px;
         }
@@ -183,12 +187,12 @@ app-mp-select {
           background: none !important;
         }
   
-        li.mp-select-item a:visited, li.mp-select-item a:active, li.mp-select-item a:focus {
+        li.med-select-item a:visited, li.med-select-item a:active, li.med-select-item a:focus {
           outline: none;
           text-decoration: none;
         }
   
-        li.mp-select-item.selected {
+        li.med-select-item.selected {
           //color: white;
           background: #dff0fd;
         }

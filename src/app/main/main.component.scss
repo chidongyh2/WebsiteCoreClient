@@ -2,7 +2,12 @@
   padding-top: 20px;
   overflow-y: scroll;
 }
-
+:host ::ng-deep .page-body {
+  .modal-backdrop {
+    min-height: auto !important;
+    height: auto !important;
+  }
+}
 :host ::ng-deep .tab-content {
   padding: 1rem;
   //min-height: 500px;

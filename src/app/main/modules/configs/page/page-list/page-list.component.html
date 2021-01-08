@@ -1,58 +1,49 @@
 <div class="page-body box-infor-field tab-wrapper tab-page-list">
-    <app-card [title]="'Danh sách danh mục'">
-      <form class="form-inline card-header card-search">
-        <div class="form-group">
-          <label class="search-label mr-2">Danh mục</label>
-          <input name="keyword" type="text" placeholder="Danh mục" class="form-control mr-4" [(ngModel)]="keyword">
-          <button class="btn btn-primary py-2" (click)="fetch()">
-            <i class="feather icon-search"></i>
-          </button>
-        </div>
-        <div class="form-group ml-auto">
-          <button class="btn btn-primary float-right py-2" (click)="add()">
-            <i class="feather icon-plus-circle" aria-hidden="true"></i>Thêm mới
-          </button>
-        </div>
-      </form>
-      <div class="table-responsive fixed-table-body" [loading]="isLoading">
-        <table class="table table-framed">
-          <thead>
-            <tr>
-              <th width="100" class="text-center">STT</th>
-              <th>Tên trang</th>
-              <th>Icon</th>
-              <th width="100">Trạng thái</th>
-              <th style="width: 100px">Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items; let i = index">
-              <th width="100" class="text-center">{{i}}</th>
-              <th scope="row">{{ item.name }}</th>
-              <td>{{ item?.icon }}</td>
-              <td>{{ item?.isActive }}</td>
-              <td class="text-center">
-                <span class="common-action" (click)="edit(item.id)"><i
-                    class="feather icon-settings"></i></span>
-                <span class="common-action ml-3" (click)="deletePage(item)"><i
-                    class="feather icon-trash-2"></i></span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-  
+  <app-card [title]="'pageTitle.page' | translate">
+    <form class="form-inline card-header card-search">
+      <div class="form-group">
+        <input name="keyword" type="text" [placeholder]="'label.searchInput' | translate" class="form-control"
+          [(ngModel)]="keyword">
       </div>
-      <div class="m-b-20" *ngIf="totalRows">
-        <div *ngIf="totalRows > 1">
-          <ngb-pagination class="float-right" [collectionSize]="totalRows" [pageSize]="pageSize" [(page)]="currentPage"
-            [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage()">
-          </ngb-pagination>
-        </div>
-        <div *ngIf="keyword && items && items.length < 1"
-          style="text-align: center; margin-top: 10px; font-weight: bold;">
-          Không có kết quả thỏa mãn điều kiện nhập
-        </div>
+      <div class="form-group ml-3">
+        <med-select [data]="[{id: true, text: 'Kích hoạt'}, {id: false, text: 'Chưa kích hoạt'}]"
+          [title]="'-- Tất cả --'" [(value)]="isActive"></med-select>
       </div>
-  
-    </app-card>
-  </div>
+      <div class="form-group ml-3">
+        <button class="btn btn-primary py-2" (click)="fetch()">
+          <i class="feather icon-search"></i>
+        </button>
+      </div>
+      <div class="form-group ml-auto">
+        <button class="btn btn-primary float-right py-2" translate="button.createNew" (click)="add()">
+        </button>
+      </div>
+    </form>
+    <div class="data-table">
+      <data-table [isLoading]="isLoading" [metadata]="metadata" [data]="items" [page]="currentPage" [quantity]="totalRows" (sorted)="onSorted($event)">
+        <ng-template cell-template="isActive" let-item>
+          <span class="badge" [translate]="item?.isActive ? 'label.actived' : 'label.notActive'"
+                [ngClass]="item?.isActive ? 'badge-success' : 'badge-error'"></span>
+        </ng-template>
+        <ng-template  cell-template="icon" let-item>
+          <i class="fa" [ngClass]="item?.icon"></i>
+        </ng-template>
+        <ng-template cell-template="isShowSidebar" let-item>
+          <span class="badge" [translate]="item?.isShowSidebar ? 'label.showed' : 'label.notShow'"
+                [ngClass]="item?.isShowSidebar ? 'badge-success' : 'badge-secondary'"></span>
+        </ng-template>
+        <ng-template cell-template="action" let-item>
+          <span  class="common-action" (click)="edit(item)"><i class="feather icon-settings"></i></span>
+              <span class="common-action ml-3" (click)="deletePage(item)"><i class="feather icon-trash-2"></i></span>
+        </ng-template>
+      </data-table>
+    </div>
+    <div class="m-b-20" *ngIf="totalRows">
+      <div *ngIf="totalRows > 1">
+        <ngb-pagination class="float-right" [collectionSize]="totalRows" [pageSize]="pageSize" [(page)]="currentPage"
+          [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" (pageChange)="loadPage()">
+        </ngb-pagination>
+      </div>
+    </div>
+  </app-card>
+</div>

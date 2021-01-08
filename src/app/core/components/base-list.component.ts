@@ -7,11 +7,13 @@ import { BriefUser } from "../models/brief-user.model";
 import { PermissionViewModel } from "../view-models/permission.viewmodel";
 import { SearchResultViewModel } from "../view-models/search-result.viewmodel";
 import { AppInjector } from 'src/app/shareds/helpers/app-injector';
+import { DataTableMetadata } from 'src/app/shareds/components/data-table/data-table-metadata';
 
 @Directive()
 export abstract class BaseListComponent<T> implements OnInit, OnDestroy {
     currentUser: BriefUser;
     systemManager: SystemManager;
+    public metadata: DataTableMetadata;
     isLoading: boolean;
     keyword: string;
     items: T[];
@@ -94,5 +96,12 @@ export abstract class BaseListComponent<T> implements OnInit, OnDestroy {
 
     refresh() {
         this.refreshTrigger.next()
-      }
+    }
+
+    onSorted(sort: string) {
+        this.metadata.sort = sort
+        this.sort = sort
+        this.currentPage = 1
+        this.refresh()
+    }
 }

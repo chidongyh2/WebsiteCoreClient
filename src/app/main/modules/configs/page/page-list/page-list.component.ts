@@ -5,6 +5,8 @@ import { PageSearchViewModel } from './../models/page-search.viewmodel';
 import { Component, Inject, OnInit } from '@angular/core';
 import { BaseListComponent } from 'src/app/core/components/base-list.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Page } from '../models/page.model';
+import { PageListMetadata } from './page-list.metadata';
 
 @Component({
   selector: 'page-list',
@@ -17,6 +19,7 @@ export class PageListComponent extends BaseListComponent<PageSearchViewModel> im
     private modalService: NgbModal,
     private pageService: PageService) {
     super();
+    this.metadata = PageListMetadata;
     this.currentPageId = pageId.CONFIG_PAGE
   }
   public fetch() {
@@ -26,18 +29,30 @@ export class PageListComponent extends BaseListComponent<PageSearchViewModel> im
   add() {
     let modalRef = this.modalService.open(PageFormComponent, {
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      container: '.tab-page-list',
+      windowClass: 'modal-tabs'
     });
-    modalRef.result.then(data => {
+    modalRef.result.then(res => {
+      if (res) {
+        this.refresh();
+      }
     });
   }
   
-  edit(id: number) {
+  edit(page: Page) {
     let modalRef = this.modalService.open(PageFormComponent, {
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      container: '.tab-page-list',
+      windowClass: 'modal-tabs'
     });
-    modalRef.result.then(data => {
+    modalRef.componentInstance.page = page;
+    modalRef.componentInstance.isUpdate = true;
+    modalRef.result.then(res => {
+      if (res) {
+        this.refresh();
+      }
     });
   }
  

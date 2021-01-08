@@ -43,3 +43,8 @@ export const selectActivedTab = createSelector(
     selectAuthState,
     (state: AuthState) => state.tab && state.tab.toString()
 );
+
+export const selectPermission = createSelector(
+    selectAuthState,
+    (state: AuthState) => state.permissions
+);

@@ -10,5 +10,5 @@ export interface PageSearchViewModel {
     order: number;
     parentId?: number;
     idPath?: string;
-    isSelected: boolean;
+    isShowSidebar: boolean;
 }

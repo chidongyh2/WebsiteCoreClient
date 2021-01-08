@@ -11,7 +11,7 @@ import { takeUntil } from 'rxjs/operators';
 import { selectCurrentUser, selectMenuItems } from 'src/app/auth/auth.selector';
 import * as _ from 'lodash';
 import { BriefUserViewmodel } from 'src/app/shareds/view-model/brief-user.viewmodel';
-import { ActionAddOrActiveTab } from 'src/app/auth/auth.actions';
+import { ActionAddOrActiveTab, ActionAuthLogout } from 'src/app/auth/auth.actions';
 @Component({
   selector: 'layout',
   templateUrl: './layout.component.html',
@@ -603,7 +603,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   }
 
   logout(evt) {
-
+    this.store.dispatch(new ActionAuthLogout());
   }
 
   onOpenTab(item: MenuItem) {
